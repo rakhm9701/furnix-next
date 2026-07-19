@@ -7,6 +7,9 @@ services:
       - 5000:3000
     environment: 
       - PORT=3000
+      - REACT_APP_API_URL=${REACT_APP_API_URL:-http://147.93.103.154:5001}
+      - REACT_APP_API_GRAPHQL_URL=${REACT_APP_API_GRAPHQL_URL:-http://147.93.103.154:5001/graphql}
+      - REACT_APP_API_WS=${REACT_APP_API_WS:-ws://147.93.103.154:5001}
 
     volumes:
       - ./:/user/src/furnix-next

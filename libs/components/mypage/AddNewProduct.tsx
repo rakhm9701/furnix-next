@@ -2,8 +2,8 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Button, Stack, Typography } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { ProductLocation, ProductType } from '../../enums/product.enum';
-import { REACT_APP_API_URL, productMaterials } from '../../config';
+import { ProductColor, ProductLocation, ProductSize, ProductType } from '../../enums/product.enum';
+import { REACT_APP_API_URL } from '../../config';
 import { ProductInput } from '../../types/product/product.input';
 import axios from 'axios';
 import { getJwtToken } from '../../auth';
@@ -20,6 +20,8 @@ const AddProduct = ({ initialValues, ...props }: any) => {
 	const [insertProductData, setInsertProductData] = useState<ProductInput>(initialValues);
 	const [productType, setProductType] = useState<ProductType[]>(Object.values(ProductType));
 	const [productLocation, setProductLocation] = useState<ProductLocation[]>(Object.values(ProductLocation));
+	const [productColor, setProductColor] = useState<ProductColor[]>(Object.values(ProductColor));
+	const [productSize, setProductSize] = useState<ProductSize[]>(Object.values(ProductSize));
 	const token = getJwtToken();
 	const user = useReactiveVar(userVar);
 
@@ -48,8 +50,8 @@ const AddProduct = ({ initialValues, ...props }: any) => {
 			productType: getProductData?.getProduct ? getProductData?.getProduct?.productType : '',
 			productLocation: getProductData?.getProduct ? getProductData?.getProduct?.productLocation : '',
 			productAddress: getProductData?.getProduct ? getProductData?.getProduct?.productAddress : '',
-			productColors: getProductData?.getProduct ? getProductData?.getProduct?.productColors : '',
-			productMaterials: getProductData?.getProduct ? getProductData?.getProduct?.productMaterials : '',
+			productColor: getProductData?.getProduct ? getProductData?.getProduct?.productColor : '',
+			productSize: getProductData?.getProduct ? getProductData?.getProduct?.productSize : '',
 			productDesc: getProductData?.getProduct ? getProductData?.getProduct?.productDesc : '',
 			productImages: getProductData?.getProduct ? getProductData?.getProduct?.productImages : [],
 		});
@@ -115,8 +117,8 @@ const AddProduct = ({ initialValues, ...props }: any) => {
 			insertProductData.productType === '' || // @ts-ignore
 			insertProductData.productLocation === '' || // @ts-ignore
 			insertProductData.productAddress === '' || // @ts-ignore
-			insertProductData.productColors === '' ||
-			insertProductData.productMaterials === '' ||
+			insertProductData.productColor === '' ||
+			insertProductData.productSize === '' ||
 			insertProductData.productDesc === '' ||
 			insertProductData.productImages.length === 0
 		) {
@@ -304,16 +306,16 @@ const AddProduct = ({ initialValues, ...props }: any) => {
 									<Typography className="title">Color</Typography>
 									<select
 										className={'select-description'}
-										value={insertProductData.productColors || 'select'}
-										defaultValue={insertProductData.productColors || 'select'}
+										value={insertProductData.productColor || 'select'}
+										defaultValue={insertProductData.productColor || 'select'}
 										onChange={({ target: { value } }) =>
-											setInsertProductData({ ...insertProductData, productColors: value })
+											setInsertProductData({ ...insertProductData, productColor: value as ProductColor })
 										}
 									>
 										<option disabled={true} selected={true} value={'select'}>
 											Select
 										</option>
-										{['black', 'gold', 'red'].map((color: string) => (
+										{productColor.map((color: string) => (
 											<option value={`${color}`}>{color}</option>
 										))}
 									</select>
@@ -321,23 +323,21 @@ const AddProduct = ({ initialValues, ...props }: any) => {
 									<img src={'/img/icons/Vector.svg'} className={'arrow-down'} />
 								</Stack>
 								<Stack className="price-year-after-price">
-									<Typography className="title">Materials</Typography>
+									<Typography className="title">Size</Typography>
 									<select
 										className={'select-description'}
-										value={insertProductData.productMaterials || 'select'}
-										defaultValue={insertProductData.productMaterials || 'select'}
+										value={insertProductData.productSize || 'select'}
+										defaultValue={insertProductData.productSize || 'select'}
 										onChange={({ target: { value } }) =>
-											setInsertProductData({ ...insertProductData, productMaterials: value })
+											setInsertProductData({ ...insertProductData, productSize: value as ProductSize })
 										}
 									>
 										<option disabled={true} selected={true} value={'select'}>
 											Select
 										</option>
-										{productMaterials.map((material: string) => {
-											if (material !== '0') {
-												return <option value={`${material}`}>{material}</option>;
-											}
-										})}
+										{productSize.map((size: string) => (
+											<option value={`${size}`}>{size}</option>
+										))}
 									</select>
 									<div className={'divider'}></div>
 									<img src={'/img/icons/Vector.svg'} className={'arrow-down'} />
@@ -474,8 +474,8 @@ AddProduct.defaultProps = {
 		productType: '',
 		productLocation: '',
 		productAddress: '',
-		productColors: '',
-		productMaterials: '',
+		productColor: '',
+		productSize: '',
 		productDesc: '',
 		productImages: [],
 	},

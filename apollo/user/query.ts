@@ -92,7 +92,7 @@ export const GET_PRODUCT = gql`
 			productAddress
 			productTitle
 			productPrice
-			productMaterials
+			productSize
 			productViews
 			productLikes
 			productComments
@@ -151,8 +151,8 @@ export const GET_PRODUCTS = gql`
 				productAddress
 				productTitle
 				productPrice
-				productMaterials
-				productColors
+				productSize
+				productColor
 				productViews
 				productLikes
 				productComments
@@ -216,8 +216,8 @@ export const GET_AGENT_PRODUCTS = gql`
 				productAddress
 				productTitle
 				productPrice
-				productMaterials
-				productColors
+				productSize
+				productColor
 				productViews
 				productLikes
 				productComments
@@ -249,7 +249,7 @@ export const GET_FAVORITES = gql`
 				productAddress
 				productTitle
 				productPrice
-				productMaterials
+				productSize
 				productViews
 				productLikes
 				productComments
@@ -308,8 +308,8 @@ export const GET_VISITED = gql`
 				productAddress
 				productTitle
 				productPrice
-				productMaterials
-				productColors
+				productSize
+				productColor
 				productViews
 				productLikes
 				productComments

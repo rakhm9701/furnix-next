@@ -1,4 +1,11 @@
-export const REACT_APP_API_URL = `${process.env.REACT_APP_API_URL}`;
+const DEFAULT_API_URL = 'http://147.93.103.154:5001';
+
+const normalizeApiUrl = (url: string) => url.replace(/\/+$/, '');
+
+export const REACT_APP_API_URL = normalizeApiUrl(process.env.REACT_APP_API_URL || DEFAULT_API_URL);
+export const REACT_APP_API_GRAPHQL_URL =
+	process.env.REACT_APP_API_GRAPHQL_URL || `${REACT_APP_API_URL}/graphql`;
+export const REACT_APP_API_WS = process.env.REACT_APP_API_WS || REACT_APP_API_URL.replace(/^http/, 'ws');
 
 export const availableOptions = ['productBarter', 'productRent'];
 
@@ -10,7 +17,7 @@ for (let i = 1970; i <= thisYear; i++) {
 	productYears.push(String(i));
 }
 
-export const productMaterials = ['wood', 'metal', 'plastic'];
+export const productSize = ['SMALL', 'MEDIUM', 'LARGE', 'EXTRA_LARGE'];
 
 export const Messages = {
 	error1: 'Something went wrong!',

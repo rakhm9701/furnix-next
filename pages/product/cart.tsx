@@ -172,9 +172,9 @@ const CartPage: NextPage = () => {
 												{item.productTitle}
 											</Typography>
 											<Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-												MATERIAL:
+												SIZE:
 												<br />
-												{item.productMaterials}
+												{item.productSize}
 											</Typography>
 										</Stack>
 									</Stack>

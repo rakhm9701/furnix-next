@@ -12,12 +12,21 @@ export enum ProductStatus {
 	DELETE = 'DELETE',
 }
 
-export enum ProductMaterials {
-	WOOD = 'WOOD',
-	METAL = 'METAL',
-	PLASTIC = 'PLASTIC',
-	GLASS = 'GLASS',
-	FABRIC = 'FABRIC',
+export enum ProductSize {
+	SMALL = 'SMALL',
+	MEDIUM = 'MEDIUM',
+	LARGE = 'LARGE',
+	EXTRA_LARGE = 'EXTRA_LARGE',
+}
+
+export enum ProductColor {
+	WHITE = 'WHITE',
+	BLACK = 'BLACK',
+	BROWN = 'BROWN',
+	GREY = 'GREY',
+	BLUE = 'BLUE',
+	RED = 'RED',
+	GREEN = 'GREEN',
 }
 
 export enum ProductLocation {

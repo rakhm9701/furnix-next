@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { NotificationGroup, NotificationResponse } from './types/notification';
+import { REACT_APP_API_URL } from './config';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+const API_URL = REACT_APP_API_URL;
 
 // Get all notifications with pagination
 export const getAllNotifications = async (page: number = 1, limit: number = 10) => {

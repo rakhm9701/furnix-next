@@ -96,7 +96,7 @@ const TrendProducts = (props: TrendProductsProps) => {
 							<span>Trend Products</span>
 							<p>Trend is based on likes</p>
 						</Box>
-						<Box className={'right'}>
+						<Box component={'div'} className={'right'}>
 							<div className={'more-box'}>
 								<Link href={'/product'}>
 									<span>See all products</span>

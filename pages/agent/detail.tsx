@@ -204,7 +204,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 			<Stack className={'agent-detail-page'}>
 				<Stack className={'container'}>
 					{getMemberLoading ? (
-						<Box sx={{ display: 'flex', justifyContent: 'center', width: '100%', padding: '40px' }}>
+						<Box component={'div'} sx={{ display: 'flex', justifyContent: 'center', width: '100%', padding: '40px' }}>
 							<CircularProgress />
 						</Box>
 					) : (
@@ -231,7 +231,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 							<Stack className={'agent-home-list'}>
 								<Stack className={'card-wrap'}>
 									{getAllProductsLoading ? (
-										<Box sx={{ display: 'flex', justifyContent: 'center', width: '100%', padding: '40px' }}>
+										<Box component={'div'} sx={{ display: 'flex', justifyContent: 'center', width: '100%', padding: '40px' }}>
 											<CircularProgress />
 										</Box>
 									) : agentProducts && agentProducts.length > 0 ? (
@@ -277,7 +277,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 									<p>we are glad to see you again</p>
 								</Stack>
 								{getCommentsLoading ? (
-									<Box sx={{ display: 'flex', justifyContent: 'center', width: '100%', padding: '40px' }}>
+									<Box component={'div'} sx={{ display: 'flex', justifyContent: 'center', width: '100%', padding: '40px' }}>
 										<CircularProgress />
 									</Box>
 								) : commentTotal > 0 ? (

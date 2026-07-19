@@ -110,20 +110,20 @@ const Wishlist: NextPage = () => {
 				{myFavorites?.length ? (
 					<Stack spacing={2} className="mobile-items-container">
 						{myFavorites.map((product: Product) => (
-							<Box key={product._id} className="mobile-item-card">
-								<Box className="product-image">
+							<Box component={'div'} key={product._id} className="mobile-item-card">
+								<Box component={'div'} className="product-image">
 									<img
 										src={`${process.env.REACT_APP_API_URL}/${product.productImages?.[0] || 'img/placeholder.jpg'}`}
 										alt={product.productTitle}
 									/>
 								</Box>
-								<Box className="product-details">
-									<Box className="rating">{renderStars(product.productComments || 5)}</Box>
+								<Box component={'div'} className="product-details">
+									<Box component={'div'} className="rating">{renderStars(product.productComments || 5)}</Box>
 									<Typography className="product-title">{product.productTitle}</Typography>
 									<Typography className="product-price">${product.productPrice}</Typography>
 									<Typography className="product-status">{product.productStatus}</Typography>
 
-									<Box className="actions">
+									<Box component={'div'} className="actions">
 										<Button
 											variant="contained"
 											className="add-to-cart-btn"
@@ -140,7 +140,7 @@ const Wishlist: NextPage = () => {
 							</Box>
 						))}
 
-						<Box className="pagination-wrapper">
+						<Box component={'div'} className="pagination-wrapper">
 							<Pagination
 								count={Math.ceil(total / searchFavorites.limit)}
 								page={searchFavorites.page}
@@ -154,7 +154,7 @@ const Wishlist: NextPage = () => {
 						</Box>
 					</Stack>
 				) : (
-					<Box className="no-items">
+					<Box component={'div'} className="no-items">
 						<FavoriteBorder className="empty-icon" />
 						<Typography>Your wishlist is empty!</Typography>
 						<Button variant="contained" component={Link} href="/product" className="shop-now-btn">

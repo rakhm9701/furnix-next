@@ -75,15 +75,15 @@ const Join: NextPage = () => {
 					<Stack className={'main'}>
 						<Stack className={'left'}>
 							{/* @ts-ignore */}
-							<Box className={'logo'}>
+							<Box component={'div'} className={'logo'}>
 								<img src={'/img/logo/logo-A.jpg'} alt={'logo'} />
 								<span>Furnix</span>
 							</Box>
-							<Box className={'info'}>
+							<Box component={'div'} className={'info'}>
 								<span>{loginView ? 'login' : 'signup'}</span>
 								<p>{loginView ? 'Login' : 'Sign'} in with this account across the following sites.</p>
 							</Box>
-							<Box className={'input-wrap'}>
+							<Box component={'div'} className={'input-wrap'}>
 								<div className={'input-box'}>
 									<span>Nickname</span>
 									<input
@@ -125,7 +125,7 @@ const Join: NextPage = () => {
 									</div>
 								)}
 							</Box>
-							<Box className={'register'}>
+							<Box component={'div'} className={'register'}>
 								{!loginView && (
 									<div className={'type-option'}>
 										<span className={'text'}>I want to be:</span>
@@ -205,7 +205,7 @@ const Join: NextPage = () => {
 									</Button>
 								)}
 							</Box>
-							<Box className={'ask-info'}>
+							<Box component={'div'} className={'ask-info'}>
 								{loginView ? (
 									<p>
 										Not registered yet?

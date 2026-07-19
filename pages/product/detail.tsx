@@ -199,13 +199,13 @@ const ProductDetail: NextPage = ({ initialComment, ...props }: any) => {
 								<Stack direction="row" alignItems="center" gap="5px" className="rating-stars">
 									<span>★</span>
 									<Typography className="review-count">{product?.productViews}</Typography>
-									<Box className="stars">views</Box>
+									<Box component={'div'} className="stars">views</Box>
 									<span>★</span>
 									<Typography className="review-count">{product?.productLikes}</Typography>
-									<Box className="stars">likes</Box>
+									<Box component={'div'} className="stars">likes</Box>
 									<span>★</span>
 									<Typography className="review-count">{product?.productComments}</Typography>
-									<Box className="stars">comments</Box>
+									<Box component={'div'} className="stars">comments</Box>
 									<span>★</span>
 								</Stack>
 
@@ -219,7 +219,7 @@ const ProductDetail: NextPage = ({ initialComment, ...props }: any) => {
 								{/* Action buttons - ADD TO CART and LIKE */}
 								<Stack direction="row" className="action-buttons">
 									<Button className="add-to-cart">
-										<Box className="icon-cart">🛒</Box>
+										<Box component={'div'} className="icon-cart">🛒</Box>
 										<Typography className="button-text" onClick={handleAddToCart}>
 											ADD TO CART
 										</Typography>
@@ -230,32 +230,32 @@ const ProductDetail: NextPage = ({ initialComment, ...props }: any) => {
 								<Stack className="shipping-info">
 									<Typography className="shipping-title">Delivery & Returns</Typography>
 									<Stack direction="row" className="info-item">
-										<Box className="icon-container">
-											<Box className="icon">📍</Box>
+										<Box component={'div'} className="icon-container">
+											<Box component={'div'} className="icon">📍</Box>
 										</Box>
 										<Typography className="text">
 											Shippable <span className="highlight">around The USA</span>
 										</Typography>
 									</Stack>
 									<Stack direction="row" className="info-item">
-										<Box className="icon-container">
-											<Box className="icon">✓</Box>
+										<Box component={'div'} className="icon-container">
+											<Box component={'div'} className="icon">✓</Box>
 										</Box>
 										<Typography className="text">
 											<span className="highlight">In stock</span> and ready to ship
 										</Typography>
 									</Stack>
 									<Stack direction="row" className="info-item">
-										<Box className="icon-container">
-											<Box className="icon">🚚</Box>
+										<Box component={'div'} className="icon-container">
+											<Box component={'div'} className="icon">🚚</Box>
 										</Box>
 										<Typography className="text">
 											Delivery Estimated Within <span className="highlight">weekdays</span>
 										</Typography>
 									</Stack>
 									<Stack direction="row" className="info-item">
-										<Box className="icon-container">
-											<Box className="icon">↩️</Box>
+										<Box component={'div'} className="icon-container">
+											<Box component={'div'} className="icon">↩️</Box>
 										</Box>
 										<Typography className="text">
 											Easy <span className="highlight">14-Day Returns</span> policy
@@ -286,62 +286,62 @@ const ProductDetail: NextPage = ({ initialComment, ...props }: any) => {
 							<Stack className={'left-config'}>
 								<Stack className={'prop-desc-config-alt2'}>
 									<Stack className={'top'}>
-										<Box className="header-container">
+										<Box component={'div'} className="header-container">
 											<Typography className={'title'}>Product Description</Typography>
-											<Box className="header-line"></Box>
+											<Box component={'div'} className="header-line"></Box>
 										</Box>
 										<Typography className={'desc'}>{product?.productDesc ?? 'No Description!'}</Typography>
 									</Stack>
 									<Stack className={'bottom'}>
-										<Box className="header-container">
+										<Box component={'div'} className="header-container">
 											<Typography className={'title'}>Product Details</Typography>
-											<Box className="header-line"></Box>
+											<Box component={'div'} className="header-line"></Box>
 										</Box>
 										<Stack className={'info-box'}>
 											<Stack className={'left'}>
 												<Box component={'div'} className={'info'}>
-													<Box className="info-icon"></Box>
-													<Box className="info-content">
+													<Box component={'div'} className="info-icon"></Box>
+													<Box component={'div'} className="info-content">
 														<Typography className={'title'}>Price</Typography>
 														<Typography className={'data'}>${formatterStr(product?.productPrice)}</Typography>
 													</Box>
 												</Box>
 												<Box component={'div'} className={'info'}>
-													<Box className="info-icon"></Box>
-													<Box className="info-content">
-														<Typography className={'title'}>Product Materials</Typography>
-														<Typography className={'data'}>{product?.productMaterials} </Typography>
+													<Box component={'div'} className="info-icon"></Box>
+													<Box component={'div'} className="info-content">
+														<Typography className={'title'}>Product Size</Typography>
+														<Typography className={'data'}>{product?.productSize} </Typography>
 													</Box>
 												</Box>
 												<Box component={'div'} className={'info'}>
-													<Box className="info-icon"></Box>
-													<Box className="info-content">
+													<Box component={'div'} className="info-icon"></Box>
+													<Box component={'div'} className="info-content">
 														<Typography className={'title'}>Product Color</Typography>
-														<Typography className={'data'}>{product?.productColors}</Typography>
+														<Typography className={'data'}>{product?.productColor}</Typography>
 													</Box>
 												</Box>
 											</Stack>
 											<Stack className={'right'}>
 												<Box component={'div'} className={'info'}>
-													<Box className="info-icon"></Box>
-													<Box className="info-content">
+													<Box component={'div'} className="info-icon"></Box>
+													<Box component={'div'} className="info-content">
 														<Typography className={'title'}>Year Built</Typography>
 														<Typography className={'data'}>{moment(product?.createdAt).format('YYYY')}</Typography>
 													</Box>
 												</Box>
 												<Box component={'div'} className={'info'}>
-													<Box className="info-icon"></Box>
-													<Box className="info-content">
+													<Box component={'div'} className="info-icon"></Box>
+													<Box component={'div'} className="info-content">
 														<Typography className={'title'}>Product Type</Typography>
 														<Typography className={'data'}>{product?.productType}</Typography>
 													</Box>
 												</Box>
 												<Box component={'div'} className={'info'}>
-													<Box className="info-icon"></Box>
-													<Box className="info-content">
+													<Box component={'div'} className="info-icon"></Box>
+													<Box component={'div'} className="info-content">
 														<Typography className={'title'}>Product Options</Typography>
 														<Typography className={'data'}>
-															For {product?.productColors && 'Barter'} {product?.productColors && 'Rent'}
+															N/A
 														</Typography>
 													</Box>
 												</Box>
@@ -391,7 +391,7 @@ const ProductDetail: NextPage = ({ initialComment, ...props }: any) => {
 										}}
 										value={insertCommentData.commentContent}
 									></textarea>
-									<Box className={'submit-btn'} component={'div'}>
+									<Box component={'div'} className={'submit-btn'}>
 										<Button
 											className={'submit-review'}
 											disabled={insertCommentData.commentContent === '' || user?._id === ''}

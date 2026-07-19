@@ -215,7 +215,7 @@ const ProductList: NextPage = ({ initialInput, ...props }: any) => {
 									<div className={'no-data'}>
 										<img src="/img/icons/icoAlert.svg" alt="" />
 										<p>No Products found!</p>
-										<Box sx={{ marginTop: '15px', display: 'none' }}>
+										<Box component={'div'} sx={{ marginTop: '15px', display: 'none' }}>
 											<Button variant="contained" color="primary" onClick={resetToDefaultFilters} size="small">
 												Reset Filters
 											</Button>

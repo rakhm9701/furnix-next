@@ -132,8 +132,8 @@ export const CREATE_PRODUCT = gql`
 			productAddress
 			productTitle
 			productPrice
-			productMaterials
-			productColors
+			productSize
+			productColor
 			productViews
 			productLikes
 			productComments
@@ -160,8 +160,8 @@ export const UPDATE_PRODUCT = gql`
 			productAddress
 			productTitle
 			productPrice
-			productMaterials
-			productColors
+			productSize
+			productColor
 			productViews
 			productLikes
 			productComments
@@ -188,8 +188,8 @@ export const LIKE_TARGET_PRODUCT = gql`
 			productAddress
 			productTitle
 			productPrice
-			productMaterials
-			productColors
+			productSize
+			productColor
 			productViews
 			productLikes
 			productComments

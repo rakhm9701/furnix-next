@@ -26,7 +26,7 @@ const ProductDetail = () => {
 			<Stack className={'headline'}> This year's bestsellers.</Stack>
 			<Stack className={'deatil-box'}>
 				<Stack className={'left'}>
-					<Box className={'img-box'}>
+					<Box component={'div'} className={'img-box'}>
 						{/* Asosiy rasm */}
 						<img src={images[activeIndex]} alt={`Product view ${activeIndex + 1}`} className="main-image" />
 						{/* Navigatsiya tugmalari */}
@@ -45,20 +45,20 @@ const ProductDetail = () => {
 							</button>
 						</div>
 					</Box>
-					<Box className={'content-box'}>
-						<Box className={'top'}>
+					<Box component={'div'} className={'content-box'}>
+						<Box component={'div'} className={'top'}>
 							<span>Top and base </span>
 							<span>Walnut Iroku</span>
 						</Box>
-						<Box className={'divider'}></Box>
-						<Box className={'butt'}>
+						<Box component={'div'} className={'divider'}></Box>
+						<Box component={'div'} className={'butt'}>
 							<span>Dimensions </span>
 							<span>24"H x 20"Dia. / 61H x 51 Dia. cm </span>
 						</Box>
 					</Box>
 				</Stack>
 				<Stack className={'right'}>
-					<Box className={'top'}>
+					<Box component={'div'} className={'top'}>
 						<h3>Your Staylish Solution : The Versatile Accent Table</h3>
 						<span>
 							"Designed with elegance and crafted with quality materials, this piece combines style and functionality.
@@ -66,7 +66,7 @@ const ProductDetail = () => {
 						</span>
 						<p className="price">$161.40</p>
 					</Box>
-					<Box className={'butt'}>
+					<Box component={'div'} className={'butt'}>
 						{/* Thumbnail rasmlar */}
 						<div className="thumbnail-container">
 							{images.map((img, index) => (

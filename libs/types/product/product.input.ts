@@ -1,14 +1,14 @@
-import { ProductLocation, ProductStatus, ProductType } from '../../enums/product.enum';
+import { ProductColor, ProductLocation, ProductSize, ProductStatus, ProductType } from '../../enums/product.enum';
 import { Direction } from '../../enums/common.enum';
 
 export interface ProductInput {
-	productType: ProductType;
-	productLocation: ProductLocation;
+	productType: ProductType | '';
+	productLocation: ProductLocation | '';
 	productAddress: string;
 	productTitle: string;
 	productPrice: number;
-	productMaterials: string;
-	productColors?: string;
+	productSize: ProductSize | '';
+	productColor: ProductColor | '';
 	productImages: string[];
 	productDesc?: string;
 	memberId?: string;
