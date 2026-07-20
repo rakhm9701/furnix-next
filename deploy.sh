@@ -1,9 +1,21 @@
-#!/bin/bash
+#!/bin/sh
+set -eu
 
+cd "$(dirname "$0")"
 
-#PRODUCTION
-git reset --hard
-git checkout master 
-git pull origin master
+BRANCH="${DEPLOY_BRANCH:-master}"
 
-docker compose up -d 
+git fetch origin "$BRANCH"
+git checkout -B "$BRANCH" "origin/$BRANCH"
+git reset --hard "origin/$BRANCH"
+
+if docker compose version >/dev/null 2>&1; then
+	docker compose up -d --build
+	docker compose ps
+elif command -v docker-compose >/dev/null 2>&1; then
+	docker-compose up -d --build
+	docker-compose ps
+else
+	echo "Docker Compose is not installed"
+	exit 1
+fi

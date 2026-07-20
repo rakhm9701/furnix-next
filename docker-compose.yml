@@ -1,30 +1,31 @@
 services:
-  furnix-api:
+  furnix-next:
     container_name: furnix-next
-    restart: always
-    image: node:20.17.0
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_URL: ${REACT_APP_API_URL:-http://147.93.103.154:5001}
+        REACT_APP_API_GRAPHQL_URL: ${REACT_APP_API_GRAPHQL_URL:-http://147.93.103.154:5001/graphql}
+        REACT_APP_API_WS: ${REACT_APP_API_WS:-ws://147.93.103.154:5001}
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      REACT_APP_API_URL: ${REACT_APP_API_URL:-http://147.93.103.154:5001}
+      REACT_APP_API_GRAPHQL_URL: ${REACT_APP_API_GRAPHQL_URL:-http://147.93.103.154:5001/graphql}
+      REACT_APP_API_WS: ${REACT_APP_API_WS:-ws://147.93.103.154:5001}
     ports:
-      - 5000:3000
-    environment: 
-      - PORT=3000
-      - REACT_APP_API_URL=${REACT_APP_API_URL:-http://147.93.103.154:5001}
-      - REACT_APP_API_GRAPHQL_URL=${REACT_APP_API_GRAPHQL_URL:-http://147.93.103.154:5001/graphql}
-      - REACT_APP_API_WS=${REACT_APP_API_WS:-ws://147.93.103.154:5001}
-
-    volumes:
-      - ./:/user/src/furnix-next
-    working_dir: /user/src/furnix-next
-
+      - "${FRONT_PORT:-5000}:3000"
     networks:
       - client-network
-
-    #FOR PRODUCTION
-    command: bash -c "yarn && yarn run build && yarn run start"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/ >/dev/null 2>&1 || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
 
 networks:
   client-network:
     driver: bridge
-
-# furnix-next: localhost: 5000 <=> container:3000
-# furnix-api: localhost: 5001 <=> container:5007
-# furnix-batch: localhost: 5002 <=> container:5008
