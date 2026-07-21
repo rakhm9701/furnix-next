@@ -67,7 +67,149 @@ const Join: NextPage = () => {
 	}, [input, router]);
 
 	if (device === 'mobile') {
-		return <div>LOGIN MOBILE</div>;
+		return (
+			<Stack className={'mobile-join-page'}>
+				<Stack className={'mobile-auth-card'}>
+					<Box component={'div'} className={'auth-logo'}>
+						<img src={'/img/logo/logo-A.jpg'} alt={'logo'} />
+						<span>Furnix</span>
+					</Box>
+
+					<Box component={'div'} className={'auth-info'}>
+						<span>{loginView ? 'Welcome back' : 'Create account'}</span>
+						<p>{loginView ? 'Login to continue shopping.' : 'Sign up and start using Furnix.'}</p>
+					</Box>
+
+					<Box component={'div'} className={'auth-tabs'}>
+						<button type="button" className={loginView ? 'active' : ''} onClick={() => viewChangeHandler(true)}>
+							Login
+						</button>
+						<button type="button" className={!loginView ? 'active' : ''} onClick={() => viewChangeHandler(false)}>
+							Sign Up
+						</button>
+					</Box>
+
+					<Box component={'div'} className={'auth-inputs'}>
+						<div className={'input-box'}>
+							<span>Nickname</span>
+							<input
+								type="text"
+								placeholder={'Enter Nickname'}
+								onChange={(e) => handleInput('nick', e.target.value)}
+								required={true}
+								onKeyDown={(event) => {
+									if (event.key == 'Enter' && loginView) doLogin();
+									if (event.key == 'Enter' && !loginView) doSignUp();
+								}}
+							/>
+						</div>
+
+						<div className={'input-box'}>
+							<span>Password</span>
+							<input
+								type="password"
+								placeholder={'Enter Password'}
+								onChange={(e) => handleInput('password', e.target.value)}
+								required={true}
+								onKeyDown={(event) => {
+									if (event.key == 'Enter' && loginView) doLogin();
+									if (event.key == 'Enter' && !loginView) doSignUp();
+								}}
+							/>
+						</div>
+
+						{!loginView && (
+							<div className={'input-box'}>
+								<span>Phone</span>
+								<input
+									type="text"
+									placeholder={'Enter Phone'}
+									onChange={(e) => handleInput('phone', e.target.value)}
+									required={true}
+									onKeyDown={(event) => {
+										if (event.key == 'Enter') doSignUp();
+									}}
+								/>
+							</div>
+						)}
+					</Box>
+
+					{!loginView && (
+						<Box component={'div'} className={'mobile-type-option'}>
+							<span>I want to be:</span>
+							<div>
+								<FormGroup>
+									<FormControlLabel
+										control={
+											<Checkbox size="small" name={'USER'} onChange={checkUserTypeHandler} checked={input?.type == 'USER'} />
+										}
+										label="User"
+									/>
+								</FormGroup>
+								<FormGroup>
+									<FormControlLabel
+										control={
+											<Checkbox
+												size="small"
+												name={'AGENT'}
+												onChange={checkUserTypeHandler}
+												checked={input?.type == 'AGENT'}
+											/>
+										}
+										label="Agent"
+									/>
+								</FormGroup>
+							</div>
+						</Box>
+					)}
+
+					{loginView && (
+						<Box component={'div'} className={'mobile-remember-info'}>
+							<FormGroup>
+								<FormControlLabel control={<Checkbox defaultChecked size="small" />} label="Remember me" />
+							</FormGroup>
+							<a>Lost password?</a>
+						</Box>
+					)}
+
+					<Button
+						className={'auth-submit'}
+						variant="contained"
+						disabled={
+							loginView
+								? isLoading || input.nick == '' || input.password == ''
+								: isLoading || input.nick == '' || input.password == '' || input.phone == '' || input.type == ''
+						}
+						onClick={loginView ? doLogin : doSignUp}
+					>
+						{isLoading ? (
+							<>
+								<CircularProgress size={20} color="inherit" sx={{ mr: 1 }} />
+								LOADING...
+							</>
+						) : loginView ? (
+							'LOGIN'
+						) : (
+							'SIGNUP'
+						)}
+					</Button>
+
+					<Box component={'div'} className={'mobile-auth-switch'}>
+						{loginView ? (
+							<p>
+								Not registered yet?
+								<b onClick={() => viewChangeHandler(false)}> SIGNUP</b>
+							</p>
+						) : (
+							<p>
+								Have account?
+								<b onClick={() => viewChangeHandler(true)}> LOGIN</b>
+							</p>
+						)}
+					</Box>
+				</Stack>
+			</Stack>
+		);
 	} else {
 		return (
 			<Stack className={'join-page'}>

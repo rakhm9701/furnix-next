@@ -50,8 +50,8 @@ const FaqCreate: NextPage = () => {
 
 	useEffect(() => {
 		if (faqData?.getFaq) {
-			const { title, content, status } = faqData.getFaq;
-			setFormData({ title, content, status });
+			const { noticeTitle, noticeContent, noticeStatus } = faqData.getFaq;
+			setFormData({ title: noticeTitle, content: noticeContent, status: noticeStatus });
 		}
 	}, [faqData]);
 
@@ -82,6 +82,7 @@ const FaqCreate: NextPage = () => {
 						input: {
 							title: formData.title,
 							content: formData.content,
+							status: formData.status,
 						},
 					},
 				});

@@ -4,12 +4,13 @@ import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
 import { Stack, Box } from '@mui/material';
 import Link from 'next/link';
+import MobileComingSoon from '../../libs/components/common/MobileComingSoon';
 
 const About: NextPage = () => {
 	const device = useDeviceDetect();
 
 	if (device === 'mobile') {
-		return <div>ABOUT PAGE MOBILE</div>;
+		return <MobileComingSoon title="About Mobile Page" backgroundText="About" />;
 	} else {
 		return (
 			<Stack className={'about-page'}>

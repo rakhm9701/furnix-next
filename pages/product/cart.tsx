@@ -10,11 +10,15 @@ import { useCart } from '../../libs/context/useCart';
 import { Add, Remove, DeleteOutline } from '@mui/icons-material';
 import CloseIcon from '@mui/icons-material/Close';
 import Link from 'next/link';
+import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 
 const CartPage: NextPage = () => {
 	const { state, updateQuantity, removeFromCart, clearCart } = useCart();
 	const router = useRouter();
+	const device = useDeviceDetect();
 	const [loading, setLoading] = useState(false);
+
+	const getProductImage = (image?: string) => (image ? `${REACT_APP_API_URL}/${image}` : '/img/banner/products.jpg');
 
 	const handleQuantityChange = async (productId: string, newQuantity: number) => {
 		try {
@@ -56,6 +60,101 @@ const CartPage: NextPage = () => {
 			setLoading(false);
 		}
 	};
+
+	if (device === 'mobile') {
+		return (
+			<Stack className="mobile-cart-page">
+				<Stack className="mobile-cart-head">
+					<Stack>
+						<span>Shopping Cart</span>
+						<h1>My Cart</h1>
+					</Stack>
+
+					{state.items.length > 0 && (
+						<button type="button" className="clear-cart" onClick={handleRemoveAll}>
+							Clear
+						</button>
+					)}
+				</Stack>
+
+				{state.items.length === 0 ? (
+					<Stack className="mobile-empty-cart">
+						<div className="empty-icon">🛒</div>
+						<h2>Your cart is empty</h2>
+						<p>Add some furniture to continue shopping.</p>
+						<button type="button" onClick={() => router.push('/product')}>
+							Start Shopping
+						</button>
+					</Stack>
+				) : (
+					<>
+						<Stack className="mobile-cart-list">
+							{state.items.map((item) => (
+								<Stack key={item._id} className="mobile-cart-card">
+									<button type="button" className="remove-item" onClick={() => handleRemoveItem(item._id)}>
+										<CloseIcon fontSize="small" />
+									</button>
+
+									<div className="image-box">
+										<img
+											src={getProductImage(item.productImages?.[0])}
+											alt={item.productTitle}
+											onError={(e) => {
+												const target = e.target as HTMLImageElement;
+												target.src = '/img/banner/products.jpg';
+											}}
+										/>
+									</div>
+
+									<Stack className="cart-info">
+										<h3>{item.productTitle}</h3>
+										<span className="size">Size: {item.selectedSize || item.productSize || '-'}</span>
+
+										<div className="price-row">
+											<strong>${formatterStr(item.productPrice)}</strong>
+											<span>${formatterStr(item.productPrice * item.quantity)}</span>
+										</div>
+
+										<div className="qty-row">
+											<button type="button" onClick={() => handleQuantityChange(item._id, item.quantity - 1)}>
+												<Remove fontSize="small" />
+											</button>
+											<span>{item.quantity}</span>
+											<button type="button" onClick={() => handleQuantityChange(item._id, item.quantity + 1)}>
+												<Add fontSize="small" />
+											</button>
+										</div>
+									</Stack>
+								</Stack>
+							))}
+						</Stack>
+
+						<Stack className="mobile-cart-summary">
+							<div>
+								<span>Subtotal</span>
+								<strong>${formatterStr(state.total)}</strong>
+							</div>
+							<div>
+								<span>Shipping</span>
+								<strong className="free">FREE</strong>
+							</div>
+							<div className="summary-total">
+								<span>Total</span>
+								<strong>${formatterStr(state.total)}</strong>
+							</div>
+
+							<button type="button" className="checkout-button" onClick={handleCheckout} disabled={loading}>
+								{loading ? 'Processing...' : 'Checkout'}
+							</button>
+							<button type="button" className="continue-button" onClick={() => router.push('/product')}>
+								Continue Shopping
+							</button>
+						</Stack>
+					</>
+				)}
+			</Stack>
+		);
+	}
 
 	return (
 		<Container maxWidth="lg" sx={{ py: 4 }}>
@@ -147,7 +246,7 @@ const CartPage: NextPage = () => {
 											}}
 										>
 											<img
-												src={`${REACT_APP_API_URL}/${item.productImages[0]}`}
+												src={getProductImage(item.productImages?.[0])}
 												alt={item.productTitle}
 												style={{
 													maxWidth: '100%',
@@ -156,7 +255,7 @@ const CartPage: NextPage = () => {
 												}}
 												onError={(e) => {
 													const target = e.target as HTMLImageElement;
-													target.src = '/img/placeholder.png';
+													target.src = '/img/banner/products.jpg';
 												}}
 											/>
 										</Stack>

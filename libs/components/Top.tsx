@@ -35,6 +35,7 @@ const Top = () => {
 	const [bgColor, setBgColor] = useState<boolean>(false);
 	const [logoutAnchor, setLogoutAnchor] = React.useState<null | HTMLElement>(null);
 	const logoutOpen = Boolean(logoutAnchor);
+	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const { state: cartState } = useCart();
 	const notification = useReactiveVar(notificationVar);
 	const notificationList = useReactiveVar(notificationListVar);
@@ -166,20 +167,111 @@ const Top = () => {
 		return (
 			<Stack className={'top'}>
 				<Link href={'/'}>
-					<div>{t('Home')}</div>
+					<img className={'mobile-logo'} src="/img/logo/Logo.svg" alt="Furnix" />
 				</Link>
-				<Link href={'/product'}>
-					<div>{t('Products')}</div>
-				</Link>
-				<Link href={'/agent'}>
-					<div> {t('Agents')} </div>
-				</Link>
-				<Link href={'/community?articleCategory=FREE'}>
-					<div> {t('Community')} </div>
-				</Link>
-				<Link href={'/cs'}>
-					<div> {t('CS')} </div>
-				</Link>
+
+				<Box component={'div'} className={'mobile-actions'}>
+					<Button
+						className="mobile-icon-button"
+						id="mobile-account-button"
+						aria-controls={open ? 'mobile-account-menu' : undefined}
+						aria-haspopup="true"
+						aria-expanded={open ? 'true' : undefined}
+						onClick={handleClick}
+					>
+						<AccountCircleIcon />
+					</Button>
+					<Menu
+						id="mobile-account-menu"
+						anchorEl={anchorEl}
+						open={open}
+						onClose={handleClose}
+						MenuListProps={{
+							'aria-labelledby': 'mobile-account-button',
+						}}
+					>
+						{!user._id
+							? [
+									<MenuItem key="login" onClick={handleClose}>
+										<Link href={'/account/join'}>Login</Link>
+									</MenuItem>,
+									<MenuItem key="signup" onClick={handleClose}>
+										<Link href={'/account/join'}>Sign Up</Link>
+									</MenuItem>,
+							  ]
+							: null}
+						{user._id ? (
+							<MenuItem
+								key="logout"
+								onClick={() => {
+									handleLogoutRequest();
+									handleClose();
+								}}
+							>
+								Logout
+							</MenuItem>
+						) : null}
+					</Menu>
+
+					<button type="button" className="mobile-icon-button mobile-cart-button" onClick={handleCartClick}>
+						<ShoppingCartIcon />
+						{cartState.itemCount > 0 && <span className="cart-alert">{cartState.itemCount}</span>}
+					</button>
+
+					<Button disableRipple className="mobile-lang-button" onClick={langClick} endIcon={<CaretDown size={12} weight="fill" />}>
+						{lang || 'EN'}
+					</Button>
+					<StyledMenu anchorEl={anchorEl2} open={drop} onClose={langClose} sx={{ position: 'absolute' }}>
+						<MenuItem disableRipple onClick={langChoice} id="en">
+							EN
+						</MenuItem>
+						<MenuItem disableRipple onClick={langChoice} id="kr">
+							KR
+						</MenuItem>
+						<MenuItem disableRipple onClick={langChoice} id="ru">
+							RU
+						</MenuItem>
+					</StyledMenu>
+
+					<button
+						type="button"
+						className={`mobile-menu-button ${mobileMenuOpen ? 'active' : ''}`}
+						onClick={() => setMobileMenuOpen((prev) => !prev)}
+						aria-label="Open menu"
+					>
+						<span></span>
+						<span></span>
+						<span></span>
+					</button>
+				</Box>
+
+				{mobileMenuOpen && (
+					<Box component={'div'} className={'mobile-menu-panel'}>
+						<Link href={'/'} onClick={() => setMobileMenuOpen(false)}>
+							<div>{t('Home')}</div>
+						</Link>
+						<Link href={'/product'} onClick={() => setMobileMenuOpen(false)}>
+							<div>{t('Products')}</div>
+						</Link>
+						<Link href={'/agent'} onClick={() => setMobileMenuOpen(false)}>
+							<div>{t('Agents')}</div>
+						</Link>
+						<Link href={'/community?articleCategory=FREE'} onClick={() => setMobileMenuOpen(false)}>
+							<div>{t('Community')}</div>
+						</Link>
+						{user?._id && (
+							<Link href={'/mypage'} onClick={() => setMobileMenuOpen(false)}>
+								<div>{t('My Page')}</div>
+							</Link>
+						)}
+						<Link href={'/cs'} onClick={() => setMobileMenuOpen(false)}>
+							<div>{t('CS')}</div>
+						</Link>
+						<Link href={'/about'} onClick={() => setMobileMenuOpen(false)}>
+							<div>{t('About')}</div>
+						</Link>
+					</Box>
+				)}
 			</Stack>
 		);
 	} else {

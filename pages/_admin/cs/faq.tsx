@@ -112,9 +112,9 @@ const FaqArticles: NextPage = () => {
 	};
 
 	const getStatusCount = (status: NoticeStatus | 'ALL') => {
-		if (!data?.getFaqs?.items) return 0;
-		if (status === 'ALL') return data.getFaqs.total;
-		return data.getFaqs.items.filter((faq: { status: NoticeStatus }) => faq.status === status).length;
+		if (!data?.faqs?.items) return 0;
+		if (status === 'ALL') return data.faqs.total;
+		return data.faqs.items.filter((faq: { noticeStatus: NoticeStatus }) => faq.noticeStatus === status).length;
 	};
 	console.log('FAQ Data:', data); // Add this to debug
 
@@ -212,7 +212,7 @@ const FaqArticles: NextPage = () => {
 						<TablePagination
 							rowsPerPageOptions={[20, 40, 60]}
 							component="div"
-							count={data?.getFaqs?.total || 0}
+							count={data?.faqs?.total || 0}
 							rowsPerPage={rowsPerPage}
 							page={page}
 							onPageChange={handlePageChange}

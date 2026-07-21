@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Stack, Box } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper';
 import TopProductCard from './TopProductCard';
 import { ProductsInquiry } from '../../types/product/product.input';
 import { Product } from '../../types/product/product';
@@ -67,21 +65,17 @@ const TopProducts = (props: TopProductsProps) => {
 						<span>New Products</span>
 					</Stack>
 					<Stack className={'card-box'}>
-						<Swiper
-							className={'top-product-swiper'}
-							slidesPerView={'auto'}
-							centeredSlides={true}
-							spaceBetween={15}
-							modules={[Autoplay]}
-						>
-							{topProducts.map((product: Product) => {
-								return (
-									<SwiperSlide className={'top-product-slide'} key={product?._id}>
-										<TopProductCard product={product} likeProductHandler={likeProductHandler} />
-									</SwiperSlide>
-								);
-							})}
-						</Swiper>
+						{topProducts.length === 0 ? (
+							<Box component={'div'} className={'empty-list'}>
+								Products Empty
+							</Box>
+						) : (
+							<Box component={'div'} className={'products-grid'}>
+								{topProducts.slice(0, 4).map((product: Product) => (
+									<TopProductCard key={product?._id} product={product} likeProductHandler={likeProductHandler} />
+								))}
+							</Box>
+						)}
 					</Stack>
 				</Stack>
 			</Stack>

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
 import { AccordionDetails, Box, Typography } from '@mui/material';
 import MuiAccordionSummary, { AccordionSummaryProps } from '@mui/material/AccordionSummary';
-import { useRouter } from 'next/router';
 import { styled } from '@mui/material/styles';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
@@ -35,10 +34,9 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
 
 const Faq = () => {
 	const device = useDeviceDetect();
-	const router = useRouter();
 	const [expandedId, setExpandedId] = useState<string>('');
 
-	const { data: faqData, loading } = useQuery(GET_FAQS, {
+	const { data: faqData, loading, error } = useQuery(GET_FAQS, {
 		variables: {
 			filter: {
 				status: 'ACTIVE',
@@ -46,7 +44,9 @@ const Faq = () => {
 			page: 1,
 			limit: 100,
 		},
+		errorPolicy: 'all',
 	});
+	const faqs = faqData?.faqs?.items ?? [];
 
 	const handleChange = (panelId: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
 		setExpandedId(isExpanded ? panelId : '');
@@ -60,8 +60,12 @@ const Faq = () => {
 				<Box component="div" className="wrap">
 					{loading ? (
 						<div className="loading">Loading...</div>
+					) : error ? (
+						<div className="empty-list">FAQ service is temporarily unavailable.</div>
+					) : faqs.length === 0 ? (
+						<div className="empty-list">No FAQs available yet.</div>
 					) : (
-						faqData?.faqs?.items.map((faq: any) => (
+						faqs.map((faq: any) => (
 							<Accordion key={faq.id} expanded={expandedId === faq.id} onChange={handleChange(faq.id)}>
 								<AccordionSummary
 									id={`panel-${faq.id}-header`}

@@ -15,6 +15,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import { LIKE_TARGET_MEMBER } from '../../apollo/user/mutation';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
 import { Messages } from '../../libs/config';
+import MobileComingSoon from '../../libs/components/common/MobileComingSoon';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -128,7 +129,7 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 	};
 
 	if (device === 'mobile') {
-		return <h1>AGENTS PAGE MOBILE</h1>;
+		return <MobileComingSoon title="Agents Mobile Page" backgroundText="Agents" />;
 	} else {
 		return (
 			<Stack className={'agent-list-page'}>

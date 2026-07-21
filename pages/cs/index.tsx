@@ -7,6 +7,7 @@ import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
 import Notice from '../../libs/components/cs/Notice';
 import Faq from '../../libs/components/cs/Faq';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import MobileComingSoon from '../../libs/components/common/MobileComingSoon';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -33,7 +34,7 @@ const CS: NextPage = () => {
 	const tab = router.query.tab ?? 'faq';
 
 	if (device === 'mobile') {
-		return <h1>CS PAGE MOBILE</h1>;
+		return <MobileComingSoon title="CS Mobile Page" backgroundText="Support" />;
 	} else {
 		return (
 			<Stack className={'cs-page'}>

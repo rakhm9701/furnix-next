@@ -16,6 +16,7 @@ import { LIKE_TARGET_BOARD_ARTICLE } from '../../apollo/user/mutation';
 import { GET_BOARD_ARTICLES } from '../../apollo/user/query';
 import { Messages } from '../../libs/config';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
+import MobileComingSoon from '../../libs/components/common/MobileComingSoon';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -106,7 +107,7 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
 	};
 
 	if (device === 'mobile') {
-		return <h1>COMMUNITY PAGE MOBILE</h1>;
+		return <MobileComingSoon title="Community Mobile Page" backgroundText="Community" />;
 	} else {
 		return (
 			<div id="community-list-page">

@@ -24,6 +24,9 @@ const TopProductCard = (props: TopProductCardProps) => {
 	const router = useRouter();
 	const user = useReactiveVar(userVar);
 	const { addToCart } = useCart();
+	const productImage = product?.productImages?.[0]
+		? `${REACT_APP_API_URL}/${product.productImages[0]}`
+		: '/img/banner/products.jpg';
 
 	/** HANDLERS **/
 	const pushDetailHandler = async (productId: string) => {
@@ -45,9 +48,10 @@ const TopProductCard = (props: TopProductCardProps) => {
 			<Box
 				component={'div'}
 				className={'card-img'}
-				style={{ backgroundImage: `url(${REACT_APP_API_URL}/${product?.productImages[0]})` }}
+				style={device === 'mobile' ? {} : { backgroundImage: `url(${productImage})` }}
 				onClick={() => pushDetailHandler(product._id)}
 			>
+				{device === 'mobile' && <img src={productImage} alt={product?.productTitle} />}
 				<IconButton
 					className="favorite-button"
 					onClick={(e: any) => {

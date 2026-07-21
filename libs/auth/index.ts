@@ -2,7 +2,6 @@ import decodeJWT from 'jwt-decode';
 import { createIsomorphicLink, initializeApollo } from '../../apollo/client';
 import { userVar } from '../../apollo/store';
 import { CustomJwtPayload } from '../types/customJwtPayload';
-import { sweetMixinErrorAlert } from '../sweetAlert';
 import { LOGIN, SIGN_UP } from '../../apollo/user/mutation';
 
 export function getJwtToken(): any {
@@ -27,8 +26,21 @@ export const logIn = async (nick: string, password: string): Promise<void> => {
 	} catch (err) {
 		console.warn('login err', err);
 		logOut();
-		// throw new Error('Login Err');
+		throw err;
 	}
+};
+
+const getAuthErrorMessage = (err: any, fallback: string): string => {
+	const message = err?.graphQLErrors?.[0]?.message || err?.message || fallback;
+	const normalizedMessage = String(message).replace('Definer: ', '');
+	const lowerMessage = normalizedMessage.toLowerCase();
+
+	if (lowerMessage.includes('password')) return 'Please check your password again';
+	if (lowerMessage.includes('blocked')) return 'User has been blocked!';
+	if (lowerMessage.includes('nick')) return 'Nickname was not found';
+	if (lowerMessage.includes('already') || lowerMessage.includes('used')) return 'Nickname or phone already exists';
+
+	return normalizedMessage;
 };
 
 const requestJwtToken = async ({
@@ -53,15 +65,7 @@ const requestJwtToken = async ({
 		return { jwtToken: accessToken };
 	} catch (err: any) {
 		console.log('request token err', err.graphQLErrors);
-		switch (err.graphQLErrors[0].message) {
-			case 'Definer: login and password do not match':
-				await sweetMixinErrorAlert('Please check your password again');
-				break;
-			case 'Definer: user has been blocked!':
-				await sweetMixinErrorAlert('User has been blocked!');
-				break;
-		}
-		throw new Error('token error');
+		throw new Error(getAuthErrorMessage(err, 'Login failed'));
 	}
 };
 
@@ -76,7 +80,7 @@ export const signUp = async (nick: string, password: string, phone: string, type
 	} catch (err) {
 		console.warn('login err', err);
 		logOut();
-		// throw new Error('Login Err');
+		throw err;
 	}
 };
 
@@ -108,15 +112,7 @@ const requestSignUpJwtToken = async ({
 		return { jwtToken: accessToken };
 	} catch (err: any) {
 		console.log('request token err', err.graphQLErrors);
-		switch (err.graphQLErrors[0].message) {
-			case 'Definer: login and password do not match':
-				await sweetMixinErrorAlert('Please check your password again');
-				break;
-			case 'Definer: user has been blocked!':
-				await sweetMixinErrorAlert('User has been blocked!');
-				break;
-		}
-		throw new Error('token error');
+		throw new Error(getAuthErrorMessage(err, 'Signup failed'));
 	}
 };
 
@@ -157,7 +153,6 @@ export const updateUserInfo = (jwtToken: any) => {
 export const logOut = () => {
 	deleteStorage();
 	deleteUserInfo();
-	window.location.reload;
 };
 
 const deleteStorage = () => {

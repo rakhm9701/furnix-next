@@ -16,6 +16,7 @@ import { GET_PRODUCTS } from '../../apollo/user/query';
 import { T } from '../../libs/types/common';
 import { LIKE_TARGET_PRODUCT } from '../../apollo/user/mutation';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
+import MobileComingSoon from '../../libs/components/common/MobileComingSoon';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -154,7 +155,7 @@ const ProductList: NextPage = ({ initialInput, ...props }: any) => {
 	};
 
 	if (device === 'mobile') {
-		return <h1>PRODUCTS MOBILE</h1>;
+		return <MobileComingSoon title="Product Mobile Page" backgroundText="Products" />;
 	} else {
 		return (
 			<div id="product-list-page" style={{ position: 'relative' }}>

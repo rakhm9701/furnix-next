@@ -22,6 +22,9 @@ const TrendProductCard = (props: TrendProductCardProps) => {
 	const router = useRouter();
 	const user = useReactiveVar(userVar);
 	const { addToCart } = useCart();
+	const productImage = product?.productImages?.[0]
+		? `${REACT_APP_API_URL}/${product.productImages[0]}`
+		: '/img/banner/products.jpg';
 
 	/** HANDLERS **/
 	const pushDetailHandler = async (productId: string) => {
@@ -45,9 +48,9 @@ const TrendProductCard = (props: TrendProductCardProps) => {
 				<Box
 					component={'div'}
 					className={'card-img'}
-					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${product?.productImages[0]})` }}
 					onClick={() => pushDetailHandler(product._id)}
 				>
+					<img src={productImage} alt={product.productTitle} />
 					<div
 						className="favorite-button"
 						onClick={(e: any) => {
@@ -117,4 +120,3 @@ const TrendProductCard = (props: TrendProductCardProps) => {
 };
 
 export default TrendProductCard;
-
