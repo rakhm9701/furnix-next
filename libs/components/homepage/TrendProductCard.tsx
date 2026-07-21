@@ -68,7 +68,13 @@ const TrendProductCard = (props: TrendProductCardProps) => {
 					</strong>
 					<Typography className={'price'}>${product?.productPrice?.toFixed(2)}</Typography>
 				</Box>
-				<div className="add-to-cart-button" onClick={(e: any) => e.stopPropagation()}>
+				<div
+					className="add-to-cart-button"
+					onClick={(e: any) => {
+						e.stopPropagation();
+						handleAddToCart();
+					}}
+				>
 					<span className="cart-icon">+</span>
 				</div>
 			</Stack>
@@ -111,5 +117,4 @@ const TrendProductCard = (props: TrendProductCardProps) => {
 };
 
 export default TrendProductCard;
-
 
