@@ -6,15 +6,15 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        REACT_APP_API_URL: ${REACT_APP_API_URL:-http://147.93.103.154:5001}
-        REACT_APP_API_GRAPHQL_URL: ${REACT_APP_API_GRAPHQL_URL:-http://147.93.103.154:5001/graphql}
-        REACT_APP_API_WS: ${REACT_APP_API_WS:-ws://147.93.103.154:5001}
+        REACT_APP_API_URL: ${REACT_APP_API_URL:-https://api.furnix.uz}
+        REACT_APP_API_GRAPHQL_URL: ${REACT_APP_API_GRAPHQL_URL:-https://api.furnix.uz/graphql}
+        REACT_APP_API_WS: ${REACT_APP_API_WS:-wss://api.furnix.uz}
     environment:
       NODE_ENV: production
       PORT: 3000
-      REACT_APP_API_URL: ${REACT_APP_API_URL:-http://147.93.103.154:5001}
-      REACT_APP_API_GRAPHQL_URL: ${REACT_APP_API_GRAPHQL_URL:-http://147.93.103.154:5001/graphql}
-      REACT_APP_API_WS: ${REACT_APP_API_WS:-ws://147.93.103.154:5001}
+      REACT_APP_API_URL: ${REACT_APP_API_URL:-https://api.furnix.uz}
+      REACT_APP_API_GRAPHQL_URL: ${REACT_APP_API_GRAPHQL_URL:-https://api.furnix.uz/graphql}
+      REACT_APP_API_WS: ${REACT_APP_API_WS:-wss://api.furnix.uz}
     ports:
       - "${FRONT_PORT:-5000}:3000"
     networks:

@@ -1,11 +1,14 @@
-const DEFAULT_API_URL = 'http://147.93.103.154:5001';
+const DEFAULT_API_URL = 'https://api.furnix.uz';
 
 const normalizeApiUrl = (url: string) => url.replace(/\/+$/, '');
+const toWsUrl = (url: string) => normalizeApiUrl(url).replace(/^http:\/\//, 'ws://').replace(/^https:\/\//, 'wss://');
 
 export const REACT_APP_API_URL = normalizeApiUrl(process.env.REACT_APP_API_URL || DEFAULT_API_URL);
 export const REACT_APP_API_GRAPHQL_URL =
 	process.env.REACT_APP_API_GRAPHQL_URL || `${REACT_APP_API_URL}/graphql`;
-export const REACT_APP_API_WS = process.env.REACT_APP_API_WS || REACT_APP_API_URL.replace(/^http/, 'ws');
+export const REACT_APP_API_WS = process.env.REACT_APP_API_WS
+	? toWsUrl(process.env.REACT_APP_API_WS)
+	: toWsUrl(REACT_APP_API_URL);
 
 export const availableOptions = ['productBarter', 'productRent'];
 
