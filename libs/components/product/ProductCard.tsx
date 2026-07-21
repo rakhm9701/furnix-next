@@ -78,9 +78,9 @@ const ProductCard = (props: ProductCardType) => {
 					</Stack>
 					<Stack className="price-cart">
 						<Typography className="price">${formatterStr(product?.productPrice)}</Typography>
-						<IconButton className="cart-button">
-							<ShoppingCartOutlinedIcon onClick={handleAddToCart} />
-						</IconButton>
+							<IconButton className="cart-button" onClick={handleAddToCart}>
+								<ShoppingCartOutlinedIcon />
+							</IconButton>
 					</Stack>
 				</Stack>
 			</Stack>

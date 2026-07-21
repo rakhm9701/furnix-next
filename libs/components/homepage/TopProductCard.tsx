@@ -73,8 +73,14 @@ const TopProductCard = (props: TopProductCardProps) => {
 				</strong>
 				<Typography className={'price'}>${product?.productPrice?.toFixed(2)}</Typography>
 			</Box>
-			<IconButton className="add-to-cart-button" onClick={(e: any) => e.stopPropagation()}>
-				<ShoppingCartOutlinedIcon onClick={handleAddToCart} />
+			<IconButton
+				className="add-to-cart-button"
+				onClick={(e: any) => {
+					e.stopPropagation();
+					handleAddToCart();
+				}}
+			>
+				<ShoppingCartOutlinedIcon />
 			</IconButton>
 		</Stack>
 	);
